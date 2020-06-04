@@ -12,9 +12,9 @@ def client():
     jan2.title('Acess Panel - Operadores') # Dando titulo a jan2ela
     jan2.resizable(width=False, height=False) #tamanho fixo da jan2ela, nao podendo altera altura e largura e nem maximizala
     jan2.attributes("-alpha",0.92) #deixa a jan2ela com transparência
-    jan2.transient()
-    jan2.focus_force()
-    jan2.grab_set()
+    jan2.transient()#
+    jan2.focus_force()#
+    jan2.grab_set()#
     
 
 
