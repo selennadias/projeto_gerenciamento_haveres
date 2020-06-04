@@ -7,7 +7,7 @@ from haveres import haver
 
 
 
-#Criando Janela Login 
+
 jan=Tk()  #atribuindo uma variável á uma janela
 jan.title('Supermecado Alves - Acess Panel') # Dando titulo a janela
 #jan.geometry('600x300') # Tamanho da janela
