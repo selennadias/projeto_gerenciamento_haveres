@@ -5,9 +5,8 @@ from tkinter import ttk
 import database   #importando o arquivo database para fazer a conexao com banco de dados 
 from datetime import date #Bliblioteca para lidar com datas e horarios
 import tkinter
-
 def client():
-  
+      
     jan2=Toplevel() #atribuindo uma variável á uma jan2ela
     jan2.title('Acess Panel - Operadores') # Dando titulo a jan2ela
     jan2.resizable(width=False, height=False) #tamanho fixo da jan2ela, nao podendo altera altura e largura e nem maximizala
@@ -96,23 +95,23 @@ def client():
     idCli=Label(ClienteFrame1, text='Enter ID:',font=("Century Gothic",12),bg="white",fg="black")
     idCli.place(x=10,y=120)
     idCliOpEntry= ttk.Entry(ClienteFrame1,width=60) 
-    idCliOpEntry.place(x=90, y=124)
+    idCliOpEntry.place(x=95, y=124)
     NomeCliLabel = Label(ClienteFrame1, text="Nome :",font=("Century Gothic",12),bg="white",fg="black")
     NomeCliLabel.place(x=10, y=160)
     NomeCliEntry= ttk.Entry(ClienteFrame1,width=60) 
-    NomeCliEntry.place(x=90, y=164)
-    TelefoneCliLabel = Label(ClienteFrame1, text="Telefone :",font=("Century Gothic",12),bg="white",fg="black")
+    NomeCliEntry.place(x=95, y=164)
+    TelefoneCliLabel = Label(ClienteFrame1, text="Telefone:",font=("Century Gothic",12),bg="white",fg="black")
     TelefoneCliLabel.place(x=10, y=200)
     TelefoneCliEntry=ttk.Entry(ClienteFrame1,width=60) 
-    TelefoneCliEntry.place(x=90, y=204)
-    EnderecoCliLabel =  Label(ClienteFrame1, text="Endereço :",font=("Century Gothic",12),bg="white",fg="black")
+    TelefoneCliEntry.place(x=95, y=204)
+    EnderecoCliLabel =  Label(ClienteFrame1, text="Endereço:",font=("Century Gothic",12),bg="white",fg="black")
     EnderecoCliLabel.place(x=10, y=240)
     EnderecoCliEntry=ttk.Entry(ClienteFrame1,width=60) 
-    EnderecoCliEntry.place(x=90, y=244)
-    CpfLabel =  Label(ClienteFrame1, text="cpf :",font=("Century Gothic",12),bg="white",fg="black")
+    EnderecoCliEntry.place(x=95, y=244)
+    CpfLabel =  Label(ClienteFrame1, text="CPF:",font=("Century Gothic",12),bg="white",fg="black")
     CpfLabel.place(x=10, y=280)
     CpfLabelEntry=ttk.Entry(ClienteFrame1,width=60) 
-    CpfLabelEntry.place(x=90, y=284)
+    CpfLabelEntry.place(x=95, y=284)
     
 
 
@@ -126,7 +125,14 @@ def client():
     def salvar():
       
 
-            try:  
+            try:
+                
+                database.cursor.execute('''
+                select * from cliente
+                ''')
+                rows = database.cursor.fetchall()
+                cout =len ( rows ) + 1
+
                 id=idCliOpEntry.get()
                 nome=NomeCliEntry.get()
                 telefone=TelefoneCliEntry.get()
@@ -145,6 +151,7 @@ def client():
                     NomeCliEntry.delete(0, 'end')#limpa o label Nome
                     TelefoneCliEntry.delete(0, 'end')#limpa o label telefone
                     EnderecoCliEntry.delete(0, 'end')#limpa o label endereco
+                    CpfLabelEntry.delete(0, 'end')
                     zerar()
                     show()
             
@@ -167,6 +174,7 @@ def client():
                     NomeCliEntry.delete(0, 'end')#limpa o label Nome
                     TelefoneCliEntry.delete(0, 'end')#limpa o label telefone
                     EnderecoCliEntry.delete(0, 'end')#limpa o label endereco
+                    CpfLabelEntry.delete(0, 'end')
                     zerar()
                     show()
                     
@@ -175,30 +183,35 @@ def client():
                     messagebox.showinfo(title="Register Info",message="Erro Conexao ao Banco !!!",parent=jan2)
 
     def limpar():
+                
+                
+
                 idCliOpEntry.delete(0, 'end')
                 NomeCliEntry.delete(0, 'end')#limpa o label Nome
                 TelefoneCliEntry.delete(0, 'end')#limpa o label telefone
                 EnderecoCliEntry.delete(0, 'end')#limpa o label endereco
+                CpfLabelEntry.delete(0, 'end')
     def selecionar():
             try: 
-                id=idCliOpEntry.get()
-                if(idCliOpEntry.get() == ""):
-                        messagebox.showinfo("Delete Status", "ID não informado",parent=jan2)
-
-                else:
-                    
+                   
+                    result = lista.get(ACTIVE) 
+                    id=result[0]
                     database.cursor.execute(''' 
-                    select * from cliente where idCli=%s
+                    select * from cliente where idCli = %s
                     ''',(id))
                     rows = database.cursor.fetchall()
-
                     
+                    idCliOpEntry.delete(0,'end')
                     NomeCliEntry.delete(0, 'end')#limpa o label Nome
                     TelefoneCliEntry.delete(0, 'end')#limpa o label telefone
                     EnderecoCliEntry.delete(0, 'end')#limpa o label endereco
+                    CpfLabelEntry.delete(0, 'end')
                     for row in rows:
+                        idCliOpEntry.insert(0,row[0])
                         NomeCliEntry.insert(0,row[1])
                         TelefoneCliEntry.insert(0,row[2])
+                        EnderecoCliEntry.insert(0,row[3])
+                        CpfLabelEntry.insert(0,row[4])
                     
             except:
                     messagebox.showinfo(title="Register Info",message="Erro Conexao ao Banco !!!",parent=jan2)
@@ -207,9 +220,9 @@ def client():
             try: 
                 id=idCliOpEntry.get()
                 nome=NomeCliEntry.get()
-                telefone=telefoneCliEntry.get()
-                endereco=enderecoOpEntry.get()
-                cpf=i.get()
+                telefone=TelefoneCliEntry.get()
+                endereco=EnderecoCliEntry.get()
+                cpf=CpfLabelEntry.get()
                 if(id=="" or nome=="" or telefone=="" or endereco==""):
                     messagebox.showinfo("Insert status", "Erro!!  Campos Vazios",parent=jan2)
                 else:
@@ -222,6 +235,7 @@ def client():
                     NomeCliEntry.delete(0, 'end')#limpa o label Nome
                     TelefoneCliEntry.delete(0, 'end')#limpa o label telefone
                     EnderecoCliEntry.delete(0, 'end')#limpa o label endereco
+                    CpfLabelEntry.delete(0, 'end')#limpa o label endereco
                     zerar()
                     show()
             except:
@@ -241,25 +255,25 @@ def client():
             lista .delete(0,"end")
 
 
-    imag = PhotoImage(file="img/limpar.png")
-    limparButton = ttk.Button(ClienteFrame1,image=imag,command=limpar)
-    limparButton.place(x=20,y=410)
+    imag = PhotoImage(file="img/lim.png")
+    limparButton = Button(ClienteFrame1,bd=0,default=DISABLED,image=imag,command=limpar)
+    limparButton.place(x=375,y=320)
 
-    photo01 = PhotoImage(file="img/iconsalvar.png")
-    salvarButton = ttk.Button(ClienteFrame1, image=photo01,command=salvar)
+  #  photo01 = PhotoImage(file="img/iconsalvar.png")
+    salvarButton = ttk.Button(ClienteFrame1, text="Salvar",command=salvar, width=15)
     salvarButton.place(x=140,y=410)
 
-    photo02 = PhotoImage(file="img/iconExcluir.png")
-    deleteButton = ttk.Button(ClienteFrame1, image=photo02, command=excluir)
+  #  photo02 = PhotoImage(file="img/iconExcluir.png")
+    deleteButton = ttk.Button(ClienteFrame1,  text="Excluir", command=excluir,width=15)
     deleteButton.place(x=260,y=410)
 
     photo03 = PhotoImage(file="img/selectIcon.png")
     updateButton = ttk.Button(ClienteFrame1, image=photo03, command=selecionar)
-    updateButton.place(x=380,y=410)
+    updateButton.place(x=550,y=305)
 
-    photo04 = PhotoImage(file="img/alterarIcon.png")
-    getButton = ttk.Button(ClienteFrame1, image=photo04, command=alterar)
-    getButton.place(x=500,y=410)
+    #photo04 = PhotoImage(file="img/alterarIcon.png")
+    getButton = ttk.Button(ClienteFrame1,  text="Alterar", command=alterar,width=15)
+    getButton.place(x=380,y=410)
 
     scroll=Scrollbar(ClienteFrame1)  
     scroll.place(x=750,y=160)
