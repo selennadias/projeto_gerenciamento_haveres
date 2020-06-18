@@ -8,7 +8,7 @@ import tkinter
 def client():
       
     jan2=Toplevel() #atribuindo uma variável á uma jan2ela
-    jan2.title('Acess Panel - Operadores') # Dando titulo a jan2ela
+    jan2.title('Acess Panel - Cliente') # Dando titulo a jan2ela
     jan2.resizable(width=False, height=False) #tamanho fixo da jan2ela, nao podendo altera altura e largura e nem maximizala
     jan2.attributes("-alpha",0.92) #deixa a jan2ela com transparência
     jan2.transient()#
@@ -200,7 +200,6 @@ def client():
                     select * from cliente where idCli = %s
                     ''',(id))
                     rows = database.cursor.fetchall()
-                    
                     idCliOpEntry.delete(0,'end')
                     NomeCliEntry.delete(0, 'end')#limpa o label Nome
                     TelefoneCliEntry.delete(0, 'end')#limpa o label telefone
@@ -245,7 +244,7 @@ def client():
             database.cursor.execute('''
             SELECT idCli,nome FROM cliente''')
             rows = database.cursor.fetchall()
-            
+           # print(rows)
             for results in rows:
                 insertData = str(results[0])+ '          '+ results[1]
                 lista.insert("end", insertData)

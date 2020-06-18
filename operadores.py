@@ -232,6 +232,8 @@ def JanOperadores():
                     lista.insert("end", insertData)
 
 
+
+
     def zerar():
                 lista .delete(0,"end")
 

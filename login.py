@@ -67,7 +67,7 @@ PassEntry= ttk.Entry(RightFrame,width=30,show="●●●●●●●") #Deixando
 PassEntry.place(x=100, y=146)
  
 
-# O erro que tava dando no where era porque estava usando ?, tem que especificar o tipo %s
+# O erro que tava dando no where era porque estava usando ?, tem que especificar o tipo %s  
   
 
 def callback(event):
@@ -84,10 +84,10 @@ def callback(event):
         if (usuario in verifyLogin and senha in verifyLogin):
             jan.destroy()
             haver()
+
     except:
         PassEntry.delete(0, 'end')#limpa o label senha
-        
-    
+      
 jan.bind('<Return>', callback)
 
  
@@ -105,7 +105,6 @@ def Login():  #Função para verificar o login
         if (usuario in verifyLogin and senha in verifyLogin):
             jan.destroy()
             haver()
-          
 
 
     except:
