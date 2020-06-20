@@ -20,7 +20,7 @@ def haver():
 
 
    #centralizando a tela 
-   window_height = 700
+   window_height = 710
    window_width = 1000
    screen_width = jan3.winfo_screenwidth()
    screen_height = jan3.winfo_screenheight()
@@ -40,9 +40,6 @@ def haver():
 
    HavFramHav= Frame(jan3, width=1000, height=527, bg="white", relief="raise")
    HavFramHav.pack(side=TOP)
-
-
-
 
 
    #Configurando o TopFrameHav
@@ -87,22 +84,22 @@ def haver():
    botao1Cli.place(x=200,y=5)
    botao2Cli=Button(MenuFrameHav,text="Cliente",activeforeground="red",default=DISABLED, highlightbackground="gray",highlightcolor="white",width=15,bg='#282828',highlightthickness=0,fg='white',bd=0.1,command=cli)
    botao2Cli.place(x=380,y=5)
-   botao3Cli=Button(MenuFrameHav,text="Haveres",activeforeground="red",default=DISABLED, highlightbackground="gray",highlightcolor="white",width=15,bg='#282828',highlightthickness=0,fg='white',bd=0.1)
+   botao3Cli=Button(MenuFrameHav,text="Produtos",activeforeground="red",default=DISABLED, highlightbackground="gray",highlightcolor="white",width=15,bg='#282828',highlightthickness=0,fg='white',bd=0.1)
    botao3Cli.place(x=580,y=5)
 
    HavLabel=Label(FrameHav, text="HAVERES",font=("Century Gothic",16),bg="#05A134",fg="White")
    HavLabel.place(x=5, y=10)
  
    GerLabel = Label(HavFramHav, text="Gerenciamento Haveres",font=("Century Gothic",14),bg="white",fg="black")
-   GerLabel.place(x=100, y=60)
+   GerLabel.place(x=100, y=30)
 
    logo=PhotoImage(file="img/linha.png") 
    LogoLabel = Label(HavFramHav,image=logo,bg="white")  #carregando o logo através de um label.
-   LogoLabel.place(x=100, y=82)  #posicionando a iamgem
+   LogoLabel.place(x=100, y=52)  #posicionando a iamgem
 
    logon1=PhotoImage(file="img/haveres.png") 
    Logo1 = Label(HavFramHav,image=logon1,bg="white")  #carregando o logo através de um label.
-   Logo1.place(x=25, y=60)  #posicionando a iamgem
+   Logo1.place(x=25, y=30)  #posicionando a iamgem
 
    clien = StringVar()
    dinh = StringVar()
@@ -160,6 +157,7 @@ def haver():
          
          seleCli = ttk.Button(root,  text="Selecionar", command=sel,width=15)
          seleCli.place(x=550,y=305)
+         
                
 
          NomeCliLabel = Label(root, text="Nome :",font=("Century Gothic",12),fg="black")
@@ -230,29 +228,138 @@ def haver():
             
 
    CLabel = Label(HavFramHav, text="Cliente",font=("Century Gothic",12),bg="white",fg="black")
-   CLabel.place(x=100, y=135)
+   CLabel.place(x=100, y=105)
    getButton = ttk.Button(HavFramHav,  text="Selecionar", command=selecionar,width=15)
-   getButton.place(x=180,y=135)
+   getButton.place(x=180,y=105)
+
+   ConsHav = ttk.Button(HavFramHav,  text="Conultar Haveres", command=selecionar,width=15)
+   ConsHav.place(x=670,y=180)
+   consulta1=PhotoImage(file="img/haverescad.png") 
+   imgcons = Label(HavFramHav,image=consulta1,bg="white")  #carregando o logo através de um label.
+   imgcons.place(x=670, y=90)
+
    CSLabel = ttk.Label(HavFramHav, textvariable=clien,background="White",font=("Century Gothic",12),relief="groove",width=45,padding=2)
-   CSLabel.place(x=100, y=185)
+   CSLabel.place(x=100, y=150)
 
    DinheiroLabel = Label(HavFramHav, text="Dinheiro",font=("Century Gothic",12),bg="white",fg="black")
-   DinheiroLabel.place(x=100, y=250)
+   DinheiroLabel.place(x=100, y=200)
    CSLabel = ttk.Label(HavFramHav, textvariable=dinh,background="White",font=("Century Gothic",12),relief="groove",width=10,padding=2)
-   CSLabel.place(x=190, y=250)
+   CSLabel.place(x=190, y=200)
   
    mais=PhotoImage(file="img/ma.png") 
    MaisButton = Button(HavFramHav,image=mais,command=somar)  #carregando o logo através de um label.
-   MaisButton.place(x=320, y=250)  
+   MaisButton.place(x=320, y=200)  
 
    Menos=PhotoImage(file="img/meno.png") 
    MenosButton = Button(HavFramHav,image=Menos,command=Diminuir)  #carregando o logo através de um label.
-   MenosButton.place(x=360, y=250)  
+   MenosButton.place(x=360, y=200)  
 
-   DinheiroLabel = Label(HavFramHav, text="Produtos",font=("Century Gothic",12),bg="white",fg="black")
-   DinheiroLabel.place(x=100, y=310)
+   DinheiroLabel = Label(HavFramHav, text="Produtos á Selecionar",font=("Century Gothic",12),bg="white",fg="black")
+   DinheiroLabel.place(x=100, y=250)
+
+   DinheiroLabel = Label(HavFramHav, text="Produtos em Haver",font=("Century Gothic",12),bg="white",fg="black")
+   DinheiroLabel.place(x=500, y=250)
 
    #imagMais = PhotoImage(file="img/mai.png")
+
+ 
+   def salvarBD():
+                
+               
+                if not clien.get():
+                        messagebox.showinfo(title="Selection Info",message="Cliente não selecionado!!",parent=jan3)
+
+             
+
+                else:
+                    result = listaproSel.get(ACTIVE)
+                    for i in result:
+                         print(i)
+                         if type (i) == list:
+                                for j in i:
+                                    print(j)
+                                    
+
+             
+            
+  
+  
+
+
+
+      
+   def alterarBD():
+         print("Alterou")
+
+   def showPro():
+         
+          database.cursor.execute('''
+          SELECT * FROM produtos''')
+          rows = database.cursor.fetchall()
+                
+          for results in rows:
+                insertData = str(results[0])+ '          '+ results[1]
+                listapro.insert("end", insertData)
+
+   def showProSel():
+         
+          database.cursor.execute('''
+          SELECT id,usuario FROM operadores''')
+          rows = database.cursor.fetchall()
+                
+          for results in rows:
+                insertData = str(results[0])+ '          '+ results[1]
+                listaproSel.insert("end", insertData)
+
+   def AdicionarPro():
+          
+                  if not clien.get():
+                        messagebox.showinfo(title="Selection Info",message="Cliente não selecionado!!",parent=jan3)
+
+                  if not QuantidadeCliEntry.get():
+                        messagebox.showinfo(title="Selection Info",message="Quantidade Vazia!!",parent=jan3)
+                  else:     
+                        
+                              result = listapro.get(ACTIVE) 
+                              id=result[0]
+                              database.cursor.execute(''' 
+                              select * from produtos where IDprod = %s
+                              ''',(id))
+                              rows = database.cursor.fetchall()
+                              print(rows[0][1])
+                              insertData = str(rows[0][0])+ '          '+ rows[0][1]+ '          '+QuantidadeCliEntry.get()
+                              listaproSel.insert("end", insertData)
+                              
+                              
+
+            
+   QuantidadeLabel = Label(jan3, text="Qtde:",font=("Century Gothic",12),bg="white",fg="black")
+   QuantidadeLabel.place(x=100, y=600)
+   QuantidadeCliEntry=ttk.Entry(jan3,width=7) 
+   QuantidadeCliEntry.place(x=155, y=603)
+   AdicionarButton = ttk.Button(jan3, text="Adicionar",command=AdicionarPro, width=15)
+   AdicionarButton.place(x=214,y=600)
+
+   salvarButtonHav = ttk.Button(jan3, text="Salvar",command=salvarBD, width=15)
+   salvarButtonHav.place(x=250,y=660)
+
+ 
+   getButtonHav = ttk.Button(jan3,  text="Alterar", command=alterarBD,width=15)
+   getButtonHav.place(x=380,y=660)
+
+   scrollpro=Scrollbar(jan3)  
+   scrollpro.place(x=382,y=480)
+   listapro=Listbox(jan3,width=45,height=10)
+   listapro.place(x=100, y=430)
+   listapro.config(yscrollcommand=scrollpro.set)
+   showPro()
+
+   scrollproSel=Scrollbar(jan3)  
+   scrollproSel.place(x=800,y=489)
+   listaproSel=Listbox(jan3,width=45,height=10)
+   listaproSel.place(x=500, y=430)
+   listaproSel.config(yscrollcommand=scrollproSel.set)
+   #showProSel()
 
 
 

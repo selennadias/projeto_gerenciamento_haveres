@@ -242,11 +242,11 @@ def JanOperadores():
     limparButton = Button(ClienteFrame,bd=0,default=DISABLED,image=imag,command=limpar)
     limparButton.place(x=375,y=260)
 
-    photo01 = PhotoImage(file="img/iconsalvar.png")
+    #photo01 = PhotoImage(file="img/iconsalvar.png")
     salvarButton = ttk.Button(ClienteFrame, text="Salvar",command=salvar, width=15)
     salvarButton.place(x=140,y=410)
 
-    photo02 = PhotoImage(file="img/iconExcluir.png")
+    #photo02 = PhotoImage(file="img/iconExcluir.png")
     deleteButton = ttk.Button(ClienteFrame,  text="Excluir", command=excluir,width=15)
     deleteButton.place(x=260,y=410)
 
@@ -254,7 +254,7 @@ def JanOperadores():
     updateButton = ttk.Button(ClienteFrame, image=photo03, command=selecionar)
     updateButton.place(x=550,y=305)
 
-    photo04 = PhotoImage(file="img/alterarIcon.png")
+    #photo04 = PhotoImage(file="img/alterarIcon.png")
     getButton = ttk.Button(ClienteFrame,  text="Alterar", command=alterar,width=15)
     getButton.place(x=380,y=410)
 
