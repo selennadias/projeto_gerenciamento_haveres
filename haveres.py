@@ -8,6 +8,15 @@ import tkinter
 from tkinter import simpledialog
 from clientes import *
 from operadores import *
+import operator
+try:
+    import Tkinter as tk
+    import tkFont
+    import ttk
+except ImportError:
+    import tkinter as tk
+    import tkinter.font as tkFont
+    import tkinter.ttk as ttk
 
 def haver():
    #Criando jan3ela Login 
@@ -273,12 +282,9 @@ def haver():
 
                 else:
                     result = listaproSel.get(ACTIVE)
-                    for i in result:
-                         print(i)
-                         if type (i) == list:
-                                for j in i:
-                                    print(j)
-                                    
+                    #print(result[0][0])
+                    #print(result[1][])
+                   
 
              
             
@@ -326,9 +332,9 @@ def haver():
                               select * from produtos where IDprod = %s
                               ''',(id))
                               rows = database.cursor.fetchall()
-                              print(rows[0][1])
-                              insertData = str(rows[0][0])+ '          '+ rows[0][1]+ '          '+QuantidadeCliEntry.get()
-                              listaproSel.insert("end", insertData)
+                              treev.insert("", 'end', text ="", 
+                                    values =(rows[0][0], rows[0][1], QuantidadeCliEntry.get()))
+                        
                               
                               
 
@@ -354,13 +360,35 @@ def haver():
    listapro.config(yscrollcommand=scrollpro.set)
    showPro()
 
-   scrollproSel=Scrollbar(jan3)  
-   scrollproSel.place(x=800,y=489)
-   listaproSel=Listbox(jan3,width=45,height=10)
-   listaproSel.place(x=500, y=430)
-   listaproSel.config(yscrollcommand=scrollproSel.set)
-   #showProSel()
+   treev = ttk.Treeview(jan3, selectmode ='browse') 
 
+   treev.place(x=500, y=430)
+
+
+   verscrlbar = Scrollbar(jan3,  
+                           orient ="vertical",  
+                           command = treev.yview) 
+  
+
+   verscrlbar.place(x=800, y=489) 
+  
+
+   treev.configure(xscrollcommand = verscrlbar.set) 
+
+   treev["columns"] = ("1", "2", "3") 
+  
+
+   treev['show'] = 'headings'
+
+   treev.column("1", width = 90, anchor ='c') 
+   treev.column("2", width = 90, anchor ='se') 
+   treev.column("3", width = 90, anchor ='se') 
+  
+
+   treev.heading("1", text ="Id") 
+   treev.heading("2", text ="Produto") 
+   treev.heading("3", text ="Quantidade") 
+  
 
 
 
