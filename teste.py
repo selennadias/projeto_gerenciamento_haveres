@@ -1,72 +1,45 @@
-
-
 from tkinter import *
-from tkinter import messagebox  # importar caixa de messangens(mensagens usuário)
-from tkinter import ttk
-import database   #importando o arquivo database para fazer a conexao com banco de dados 
-from datetime import date #Bliblioteca para lidar com datas e horarios
 import tkinter
-from tkinter import simpledialog
-from clientes import *
-from operadores import *
-from tkinter import ttk 
-import tkinter as tk 
-  
-# Creating tkinter jan3 
-jan3 = Tk() 
-jan3.geometry('1180x1000')
+root = Tk()
+root.geometry("500x500")
 
-  
-# Using treeview widget 
-treev = ttk.Treeview(jan3, selectmode ='browse') 
+scroll=Scrollbar(root)  
+scroll.place(x=300,y=90)
+listbox = Listbox(root,exportselection=0)
+listbox.insert(END, "Selecione")
+listbox.config(yscrollcommand=scroll.set)
+listbox.place(x=50,y=70)
 
+for item in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27"]:
+  listbox.insert(END, item)
 
+scroll2=Scrollbar(root)  
+scroll2.place(x=330,y=90)
+listbox2 = Listbox(root,exportselection=0)
+listbox2.pack()
+listbox2.insert(END, "Selecione")
+listbox2.config(yscrollcommand=scroll2.set)
+listbox2.place(x=175,y=70)
 
-  
-# Calling pack method w.r.to treeview 
-treev.place(x=500, y=430)
+for item in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27"]:
+  listbox2.insert(END, item)
 
-  
-# Constructing vertical scrollbar 
-# with treeview 
-verscrlbar = Scrollbar(jan3,  
-                           orient ="vertical",  
-                           command = treev.yview) 
-  
-# Calling pack method w.r.to verical  
-# scrollbar 
-verscrlbar.place(x=800, y=489) 
-  
-# Configuring treeview 
-treev.configure(xscrollcommand = verscrlbar.set) 
-  
-# Defining number of columns 
-treev["columns"] = ("1", "2", "3") 
-  
-# Defining heading 
-treev['show'] = 'headings'
-  
-# Assigning the width and anchor to  the 
-# respective columns 
-treev.column("1", width = 90, anchor ='c') 
-treev.column("2", width = 90, anchor ='se') 
-treev.column("3", width = 90, anchor ='se') 
-  
-# Assigning the heading names to the  
-# respective columns 
-treev.heading("1", text ="Id") 
-treev.heading("2", text ="Produto") 
-treev.heading("3", text ="Quantidade") 
-  
+# Criei uma função:
+listbox2.config(state=tkinter.DISABLED)
+
+def chamada(event):
+  global listbox2
+
+ # print(event.x)
+ # print(event.y)
+  index = int(listbox.curselection()[0])
+ # print(index)
+  listbox2.select_set(index)
+
+# E atribui a função ao evento do clique do mouse na
+# primeira listbox:
+
+listbox.bind("<Button-1>",chamada)
 
 
-
-def AdicionarPro():
-      treev.insert("", 'end', text ="", 
-            values =("aaa", "22", "00")) 
-  
-AdicionarButton = ttk.Button(jan3, text="Adicionar",command=AdicionarPro, width=15)
-AdicionarButton.place(x=15,y=100)
-
-# Calling mainloop 
-jan3.mainloop() 
+root.mainloop()

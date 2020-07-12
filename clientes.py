@@ -145,7 +145,7 @@ def client():
                     insert into cliente(idCli,nome,telefone,endereco,cpf) 
                     values(%s, %s, %s, %s, %s)
                     ''',(id,nome,telefone,endereco,cpf))
-                    database.db.commit()
+                    database.db.comit()
                     messagebox.showinfo(title="Register Info",message="Salvo com Sucesso!!",parent=jan2)
                     idCliOpEntry.delete(0, 'end')
                     NomeCliEntry.delete(0, 'end')#limpa o label Nome
