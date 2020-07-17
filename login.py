@@ -105,6 +105,7 @@ def Login():  #Função para verificar o login
         if (usuario in verifyLogin and senha in verifyLogin):
             jan.destroy()
             haver()
+            
 
 
     except:
