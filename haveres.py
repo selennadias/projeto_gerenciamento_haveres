@@ -495,7 +495,7 @@ def haver():
 
                     database.cursor.execute('''
                     SELECT * FROM haveres where IDclientes=%s
-                    ''',iCli)
+                    ''',[iCli])
                     rows = database.cursor.fetchall()
                     
 
@@ -513,7 +513,7 @@ def haver():
                    
                     database.cursor.execute('''
                     SELECT id,nome,qtde FROM haveres_produto WHERE doc =%s
-                    ''',([iCli]))
+                    ''',[iCli])
                     dad = database.cursor.fetchall()
                     print(dad)
                     index = iid = 0
@@ -650,11 +650,11 @@ def haver():
    getButton = ttk.Button(HavFramHav,  text="Selecionar", command=selecionar,width=15)
    getButton.place(x=180,y=105)
 
-   ConsHav = ttk.Button(HavFramHav,  text="Conultar Haveres", command=selecionar,width=15)
-   ConsHav.place(x=670,y=180)
-   consulta1=PhotoImage(file="img/haverescad.png") 
-   imgcons = Label(HavFramHav,image=consulta1,bg="white")  #carregando o logo através de um label.
-   imgcons.place(x=670, y=90)
+   #ConsHav = ttk.Button(HavFramHav,  text="Conultar Haveres", command=selecionar,width=15)
+   #ConsHav.place(x=670,y=180)
+   #consulta1=PhotoImage(file="img/haverescad.png") 
+   #imgcons = Label(HavFramHav,image=consulta1,bg="white")  #carregando o logo através de um label.
+   #imgcons.place(x=670, y=90)
 
    CSLabel = ttk.Label(HavFramHav, textvariable=clien,background="White",font=("Century Gothic",12),relief="groove",width=45,padding=2)
    CSLabel.place(x=145, y=150)
@@ -843,7 +843,7 @@ def haver():
 
    
    def ExcluirPro():
-
+    
          dados = treev.item(treev.selection()) ["values"]
          if not dados:
                  messagebox.showinfo(title="Selection Info",message="Produto Não Selecionado!!")
@@ -858,7 +858,14 @@ def haver():
             ''',(doc,id,qtd))
             database.db.commit()
             treev.delete(*treev.get_children())
-            showtreev(doc)
+            database.cursor.execute('''
+            SELECT id,nome,qtde FROM haveres_produto WHERE doc =%s
+            ''',(codi.get()))
+            dad = database.cursor.fetchall()
+            index = iid = 0
+            for results in dad:
+                   treev.insert("", index, iid, values=results)
+                   index = iid = index + 1
          
                         
      
@@ -934,11 +941,28 @@ def haver():
                    ''',(AlterarQua,idH))
                    database.db.commit()
                    root1.destroy()
+                   treev.delete(*treev.get_children())
+                   database.cursor.execute('''
+                   SELECT id,nome,qtde FROM haveres_produto WHERE doc =%s
+                   ''',(codi.get()))
+                   dad = database.cursor.fetchall()
+                   index = iid = 0
+                   for results in dad:
+                              treev.insert("", index, iid, values=results)
+                              index = iid = index + 1
+
+
                     
                   
 
             SalvProdButton = ttk.Button(root1, text="Alterar",command=SalPro, width=15)
             SalvProdButton.place(x=150,y=300)
+
+          
+                    
+                  
+
+
 
           
             

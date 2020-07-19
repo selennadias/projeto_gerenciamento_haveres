@@ -12,10 +12,11 @@ import tkinter
 
 def JanOperadores():
 
+    
     jan1=Toplevel() #atribuindo uma variável á uma jan1ela
     jan1.title('Acess Panel - Operadores') # Dando titulo a jan1ela
     jan1.resizable(width=False, height=False) #tamanho fixo da jan1ela, nao podendo altera altura e largura e nem maximizala
-    jan1.attributes("-alpha",0.92) #deixa a jan1ela com transparência
+    jan1.attributes("-alpha",0.95) #deixa a jan1ela com transparência
     jan1.transient()#
     jan1.focus_force()#
     jan1.grab_set()#
@@ -35,8 +36,8 @@ def JanOperadores():
     DrowFrame= Frame(jan1, width=900, height=50, bg="#05A134", relief="raise")
     DrowFrame.pack(side=TOP)
 
-    ClienteFrame= Frame(jan1, width=900, height=527, bg="white", relief="raise")
-    ClienteFrame.pack(side=TOP)
+    OperadorFrame= Frame(jan1, width=900, height=527, bg="white", relief="raise")
+    OperadorFrame.pack(side=TOP)
 
 
 
@@ -76,17 +77,17 @@ def JanOperadores():
         
 
 
-            #Configurando o ClienteFrame
+            #Configurando o OperadorFrame
 
-    opLabel = Label(ClienteFrame, text="Ficha Cadastral Operadores",font=("Century Gothic",14),bg="white",fg="black")
+    opLabel = Label(OperadorFrame, text="Ficha Cadastral Operadores",font=("Century Gothic",14),bg="white",fg="black")
     opLabel.place(x=100, y=60)
 
     logo=PhotoImage(file="img/linha.png") 
-    LogoLabel = Label(ClienteFrame,image=logo,bg="white")  #carregando o logo através de um label.
+    LogoLabel = Label(OperadorFrame,image=logo,bg="white")  #carregando o logo através de um label.
     LogoLabel.place(x=100, y=82)  #posicionando a iamgem
 
     logon1=PhotoImage(file="img/n1.png") 
-    Logo1 = Label(ClienteFrame,image=logon1,bg="white")  #carregando o logo através de um label.
+    Logo1 = Label(OperadorFrame,image=logon1,bg="white")  #carregando o logo através de um label.
     Logo1.place(x=25, y=60)  #posicionando a iamgem
 
 
@@ -94,28 +95,25 @@ def JanOperadores():
 
                 #Criando os campos
                 #Criando Label Nome
-    idOp=Label(ClienteFrame, text='Enter ID:',font=("Century Gothic",12),bg="white",fg="black")
+    idOp=Label(OperadorFrame, text='Enter ID:',font=("Century Gothic",12),bg="white",fg="black")
     idOp.place(x=10,y=120)
-    idOpOpEntry= ttk.Entry(ClienteFrame,width=60) 
+    idOpOpEntry= ttk.Entry(OperadorFrame,width=60) 
     idOpOpEntry.place(x=90, y=124)
-    NomeOpLabel = Label(ClienteFrame, text="Nome :",font=("Century Gothic",12),bg="white",fg="black")
+    
+    NomeOpLabel = Label(OperadorFrame, text="Nome :",font=("Century Gothic",12),bg="white",fg="black")
     NomeOpLabel.place(x=10, y=160)
-    NomeOpEntry= ttk.Entry(ClienteFrame,width=60) 
+    NomeOpEntry= ttk.Entry(OperadorFrame,width=60) 
     NomeOpEntry.place(x=90, y=164)
-    UsuarioOpLabel = Label(ClienteFrame, text="Usuário :",font=("Century Gothic",12),bg="white",fg="black")
+    UsuarioOpLabel = Label(OperadorFrame, text="Usuário :",font=("Century Gothic",12),bg="white",fg="black")
     UsuarioOpLabel.place(x=10, y=200)
-    UsuarioOpEntry=ttk.Entry(ClienteFrame,width=60) 
+    UsuarioOpEntry=ttk.Entry(OperadorFrame,width=60) 
     UsuarioOpEntry.place(x=90, y=204)
-    SenhaOpLabel = Label(ClienteFrame, text="Senha :",font=("Century Gothic",12),bg="white",fg="black")
+    SenhaOpLabel = Label(OperadorFrame, text="Senha :",font=("Century Gothic",12),bg="white",fg="black")
     SenhaOpLabel.place(x=10, y=240)
-    SenhaOpEntry=ttk.Entry(ClienteFrame,width=30,show="●●●●●●●") #Deixando a senha oculta
+    SenhaOpEntry=ttk.Entry(OperadorFrame,width=30,show="●●●●●●●") #Deixando a senha oculta
     SenhaOpEntry.place(x=90, y=244)
 
-    i=IntVar()
-    AdminOpLabel = Label(ClienteFrame, text="Admin :",font=("Century Gothic",12),bg="white",fg="black")
-    AdminOpLabel.place(x=10, y=280)
-    Radiobutton(ClienteFrame,text="Sim",font=("Century Gothic",12),bg="white",value="1",variable=i).place(x=90, y=280)
-    Radiobutton(ClienteFrame,text="Não",font=("Century Gothic",12),bg="white",value="2",variable=i).place(x=150, y=280)
+  
 
     def salvar():
                 
@@ -126,22 +124,34 @@ def JanOperadores():
                     nome=NomeOpEntry.get()
                     usuario=UsuarioOpEntry.get()
                     senha=SenhaOpEntry.get()
-                    admim=i.get()
+                    '''
+                    if i.get() == 1:
+                            admim="Sim"
+                    else:
+                           admim="Não"
+                    '''
                     if(nome=="" or usuario=="" or senha==""):
                         messagebox.showinfo("Insert status", "Erro!!  Campos Vazios",parent=jan1)
                     else:
                         database.cursor.execute('''
-                        insert into operadores(id,nome,usuario,senha,admim) 
-                        values(%s, %s, %s, %s, %s)
-                        ''',(id,nome,usuario,senha,admim))
+                        insert into operadores(id,nome,usuario,senha) 
+                        values(%s, %s, %s, %s)
+                        ''',(id,nome,usuario,senha))
                         database.db.commit()
                         messagebox.showinfo(title="Register Info",message="Salvo com Sucesso!!",parent=jan1)
                         idOpOpEntry.delete(0, 'end')
                         NomeOpEntry.delete(0, 'end')#limpa o label Nome
                         UsuarioOpEntry.delete(0, 'end')#limpa o label usuario
                         SenhaOpEntry.delete(0, 'end')#limpa o label senha
-                        zerar()
-                        show()
+                        #i.set(0)
+                        treev2.delete(*treev2.get_children())
+                        database.cursor.execute('''
+                        SELECT * FROM operadores''')
+                        rows = database.cursor.fetchall()
+                                
+                        for results in rows:
+                                treev2.insert("", 'end', text ="", 
+                                                values =(results[0], results[2]))
                 
                 except:
                         messagebox.showinfo(title="Register Info",message="Erro Conexao ao Banco !!!",parent=jan1)
@@ -162,9 +172,16 @@ def JanOperadores():
                         NomeOpEntry.delete(0, 'end')#limpa o label Nome
                         UsuarioOpEntry.delete(0, 'end')#limpa o label usuario
                         SenhaOpEntry.delete(0, 'end')#limpa o label senha
-                        zerar()
-                        show()
-                        
+                        #i.set(0)
+                        treev2.delete(*treev2.get_children())
+                        database.cursor.execute('''
+                        SELECT * FROM operadores''')
+                        rows = database.cursor.fetchall()
+                
+                        for results in rows:
+                          treev2.insert("", 'end', text ="", 
+                                    values =(results[0], results[2]))
+                
                 
                 except:
                         messagebox.showinfo(title="Register Info",message="Erro Conexao ao Banco !!!",parent=jan1)
@@ -177,22 +194,32 @@ def JanOperadores():
     def selecionar():
                 try: 
                     
-                        result = lista.get(ACTIVE) 
-                        id=result[0]
+                        result =treev2.item(treev2.selection()) ["values"]
+                        id=str(result[0])
                         database.cursor.execute(''' 
                         select * from operadores where id=%s
-                        ''',(id))
+                        ''',[id])
                         rows = database.cursor.fetchall()
+                        '''if rows[0][4] == "Sim":
+                                ad=1
+                        else:
+                                ad=2
+                        '''
+                        
                         
                         idOpOpEntry.delete(0,'end')
                         NomeOpEntry.delete(0, 'end')#limpa o label Nome
                         UsuarioOpEntry.delete(0, 'end')#limpa o label usuario
                         SenhaOpEntry.delete(0, 'end')#limpa o label senha
+                       
+                        
                         for row in rows:
                             idOpOpEntry.insert(0,row[0])
                             NomeOpEntry.insert(0,row[1])
                             UsuarioOpEntry.insert(0,row[2])
                             SenhaOpEntry.insert(0,row[3])
+                            #i.set(ad)
+                           
                            
                         
                 except:
@@ -204,69 +231,86 @@ def JanOperadores():
                     nome=NomeOpEntry.get()
                     usuario=UsuarioOpEntry.get()
                     senha=SenhaOpEntry.get()
-                    admim=i.get()
-                    if(id=="" or nome=="" or usuario=="" or senha=="" or i==""):
+                    '''if i.get() == 1:
+                            admim="Sim"
+                    else:
+                           admim="Não"
+                    '''
+                    if(id=="" or nome=="" or usuario=="" or senha==""):
                         messagebox.showinfo("Insert status", "Erro!!  Campos Vazios",parent=jan1)
                     else:
                         database.cursor.execute('''
-                        update operadores set nome=%s,usuario=%s,senha=%s,admim=%s  where id=%s
-                        ''',(nome,usuario,senha,admim,id))
+                        update operadores set nome=%s,usuario=%s,senha=%s where id=%s
+                        ''',(nome,usuario,senha,id))
                         database.db.commit()
                         messagebox.showinfo(title="Register Info",message="Atualizado com Sucesso!!",parent=jan1)
                         idOpOpEntry.delete(0, 'end')
                         NomeOpEntry.delete(0, 'end')#limpa o label Nome
                         UsuarioOpEntry.delete(0, 'end')#limpa o label usuario
                         SenhaOpEntry.delete(0, 'end')#limpa o label senha
-                        zerar()
-                        show()
+                        #i.set(0)
+
+                        treev2.delete(*treev2.get_children())
+                        database.cursor.execute('''
+                        SELECT * FROM operadores''')
+                        rows = database.cursor.fetchall()
+                
+                        for results in rows:
+                          treev2.insert("", 'end', text ="", 
+                                    values =(results[0], results[2]))
+                
                 except:
                         messagebox.showinfo(title="Register Info",message="Erro Conexao ao Banco !!!",parent=jan1)
                         
     def show():
-                database.cursor.execute('''
-                SELECT id,usuario FROM operadores''')
-                rows = database.cursor.fetchall()
+
+          database.cursor.execute('''
+          SELECT * FROM operadores''')
+          rows = database.cursor.fetchall()
                 
-                for results in rows:
-                    insertData = str(results[0])+ '          '+ results[1]
-                    lista.insert("end", insertData)
+          for results in rows:
+                treev2.insert("", 'end', text ="", 
+                                    values =(results[0], results[2]))
 
 
-
-
-    def zerar():
-                lista .delete(0,"end")
 
 
     imag = PhotoImage(file="img/lim.png")
-    limparButton = Button(ClienteFrame,bd=0,default=DISABLED,image=imag,command=limpar)
+    limparButton = Button(OperadorFrame,bd=0,default=DISABLED,image=imag,command=limpar)
     limparButton.place(x=375,y=260)
 
     #photo01 = PhotoImage(file="img/iconsalvar.png")
-    salvarButton = ttk.Button(ClienteFrame, text="Salvar",command=salvar, width=15)
+    salvarButton = ttk.Button(OperadorFrame, text="Salvar",command=salvar, width=15)
     salvarButton.place(x=140,y=410)
 
     #photo02 = PhotoImage(file="img/iconExcluir.png")
-    deleteButton = ttk.Button(ClienteFrame,  text="Excluir", command=excluir,width=15)
+    deleteButton = ttk.Button(OperadorFrame,  text="Excluir", command=excluir,width=15)
     deleteButton.place(x=260,y=410)
 
     photo03 = PhotoImage(file="img/selectIcon.png")
-    updateButton = ttk.Button(ClienteFrame, image=photo03, command=selecionar)
+    updateButton = ttk.Button(OperadorFrame, image=photo03, command=selecionar)
     updateButton.place(x=550,y=305)
 
     #photo04 = PhotoImage(file="img/alterarIcon.png")
-    getButton = ttk.Button(ClienteFrame,  text="Alterar", command=alterar,width=15)
+    getButton = ttk.Button(OperadorFrame,  text="Alterar", command=alterar,width=15)
     getButton.place(x=380,y=410)
 
 
 
-    scroll=Scrollbar(ClienteFrame)  
-    scroll.place(x=750,y=160)
-    lista=Listbox(ClienteFrame,width=40)
-    lista.place(x=500, y=122)
-    lista.config(yscrollcommand=scroll.set)
+    treev2 = ttk.Treeview(OperadorFrame, selectmode ='browse',height="7") 
+    treev2.place(x=500, y=122)
+    verscrlbar1 = Scrollbar(OperadorFrame,  
+                           orient ="vertical",  
+                           command = treev2.yview) 
+    verscrlbar1.place(x=750,y=200)
+    treev2.configure(xscrollcommand = verscrlbar1.set) 
+    treev2["columns"] = ("1", "2") 
+    treev2['show'] = 'headings'
+    treev2.column("1", width = 60, anchor ='c') 
+    treev2.column("2", width = 180, anchor ='nw') 
+    treev2.heading("1", text ="Id") 
+    treev2.heading("2", text ="Operadores") 
     show()
-
 
 
 
